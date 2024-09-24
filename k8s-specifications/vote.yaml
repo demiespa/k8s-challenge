@@ -43,7 +43,7 @@ spec:
   type: ClusterIP
 ---
 # vote-hpa.yaml
-apiVersion: autoscaling/v2beta2
+apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
   name: vote-hpa

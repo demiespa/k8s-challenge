@@ -27,7 +27,7 @@ spec:
             memory: "256Mi"
 ---
 # worker-hpa.yaml
-apiVersion: autoscaling/v2beta2
+apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
   name: worker-hpa
