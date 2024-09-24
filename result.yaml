@@ -1,0 +1,64 @@
+# result-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: result-deployment
+  labels:
+    app: result
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: result
+  template:
+    metadata:
+      labels:
+        app: result
+    spec:
+      containers:
+      - name: result
+        image: demiesp/result:latest
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+          requests:
+            cpu: "200m"
+            memory: "256Mi"
+---
+# result-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: result-service
+spec:
+  selector:
+    app: result
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: ClusterIP
+---
+# result-hpa.yaml
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: result-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: result-deployment
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 50
+
