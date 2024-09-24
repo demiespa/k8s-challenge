@@ -18,6 +18,6 @@ ARGO_PWD=$(kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath=
 echo "La contraseña de admin es: $ARGO_PWD"
 
 # Aplicar el manifiesto de la aplicación de ArgoCD
-kubectl apply -f argo-application.yaml
+kubectl apply -f argocd-app.yaml
 
 echo "La aplicación ha sido configurada en ArgoCD"
