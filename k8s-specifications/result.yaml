@@ -20,7 +20,7 @@ spec:
         image: demiesp/result:latest
         ports:
         - containerPort: 80
-         env:
+        env:
         - name: REDIS_HOST
           value: "redis-service"
         - name: REDIS_PORT
